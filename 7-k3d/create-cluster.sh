@@ -6,13 +6,10 @@ HOST_IP=192.168.1.220
 API_PORT=6443
 HTTP_PORT=8080
 HTTPS_PORT=8443
-REDIS_PORT=6379
-CASSANDRA_PORT=9042
-RABBITMQ_AMQP_PORT=5672
 CLUSTER_NAME=cluster-1
 READ_VALUE=
 SERVERS=1
-AGENTS=1
+AGENTS=2
 INSTALL_INGRESS=Yes
 INSTALL_DASHBOARD=Yes
 
@@ -135,15 +132,6 @@ ports:
     nodeFilters:
       - loadbalancer
   - port: 0.0.0.0:${HTTPS_PORT}:443 # https port host:container
-    nodeFilters:
-      - loadbalancer
-  - port: 0.0.0.0:${REDIS_PORT}:6379 # Redis port host:container
-    nodeFilters:
-      - loadbalancer
-  - port: 0.0.0.0:${CASSANDRA_PORT}:9042 # Cassandra port host:container
-    nodeFilters:
-      - loadbalancer
-  - port: 0.0.0.0:${RABBITMQ_AMQP_PORT}:5672 # RabbitMQ AMQP port host:container
     nodeFilters:
       - loadbalancer
 env:
@@ -306,33 +294,7 @@ metricsScraper:
   enabled: true
 EOF
 
-#  cat << EOF | kubectl create -f -
-#apiVersion: v1
-#kind: ServiceAccount
-#metadata:
-#  name: admin-user
-#  namespace: kubernetes-dashboard
-#---
-#apiVersion: rbac.authorization.k8s.io/v1
-#kind: ClusterRoleBinding
-#metadata:
-#  name: admin-user
-#roleRef:
-#  apiGroup: rbac.authorization.k8s.io
-#  kind: ClusterRole
-#  name: cluster-admin
-#subjects:
-#- kind: ServiceAccount
-#  name: admin-user
-#  namespace: kubernetes-dashboard
-#EOF
-
   kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:kubernetes-dashboard
-
-  # Create dashboard account
-  #kubectl create serviceaccount dashboard-admin-sa
-  # bind the dashboard-admin-service-account service account to the cluster-admin role
-  #kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
 }
 
 isSelected()

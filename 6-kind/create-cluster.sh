@@ -1,5 +1,6 @@
 #!/bin/bash
 
+kind delete clusters --all
 
 cat > kind-config.yaml <<EOF
 # three node (two workers) cluster config
