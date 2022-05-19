@@ -7,7 +7,7 @@ _Hands-on Session_
 
 ---
 
-# What Makes Kubernetes?
+# How It's Made
 
 * **Container Management** (CRI -> container runtime)
 * **Network Management** (CNI -> iptables, dns)
@@ -16,39 +16,29 @@ _Hands-on Session_
 
 ---
 
-# How It Makes Kubernetes
+# What It's Made
 
-* kube-apiserver
-* kube-scheduler
-* kube-controll-manager
-* kubelet
-* kube-proxy
+* **kube-apiserver**
+* **kube-scheduler**
+* **kube-controll-manager**
+* **kubelet**
+* **kube-proxy**
 
 ---
 
-# How does Kubernetes Look Like?
-
-
+<img data-src="assets/kubernetes-structure.png" class="stretch"/>
 
 ---
 
 # Minimal Valuable Cluster
-_Must-have Components for Convenience_
+_Functionalities for Convenience_
 
-* High Avialibility (server/agent/control-pane)
-* Dashboard & Metrics
-* Ingress
-* Load Balancer
+* **Nodes (server/agent/control-plane)**
+* **Dashboard & Metrics**
+* **Ingress**
+* **Load Balancer / Tunnel**
 * (Image Registry)
 * (Cert Manager)
-
----
-
-# What is high availability Kubernetes?
-
-* There must be more than one worker node
-* The Kubernetes API services must be running on more than one node
-* The cluster state must be in a reliable datastore
 
 ---
 
@@ -60,71 +50,81 @@ _Training module expects understanding of Docker and containers_
 # 1 - Minikube
 _[https://minikube.sigs.k8s.io/](https://minikube.sigs.k8s.io/)_
 
-* Linux
-    * **Docker** - container-based (preferred)
-    * **KVM2** - VM-based (preferred)
-    * **VirtualBox** - VM
-    * **None** - bare-metal
-    * **Podman** - container (experimental)
-    * **SSH** - remote ssh
+* **Developed by Google**
+* **CNCF certified**
+* **Multi-cluster** - `minikube start -p <name>`
+* **LoadBalancer** - `minikube tunnel`
+* **Persistent Volumes**
+* **Ingress**
+* **Container runtime** - Docker,containerd,CRI-O
+* **Networking** - Calico,Flannel
 
 ---
 
-# 1 - Minikube
-_[https://minikube.sigs.k8s.io/](https://minikube.sigs.k8s.io/)_
-
-* macOS
-    * **Docker** - VM + Container (preferred)
-    * **Hyperkit** - VM
-    * **VirtualBox** - VM
-    * **Parallels** - VM
-    * **VMware Fusion** - VM
-    * **SSH** - remote ssh
-
----
-
-# 1 - Minikube
-_[https://minikube.sigs.k8s.io/](https://minikube.sigs.k8s.io/)_
-
-* Windows
-    * **Hyper-V** - VM (preferred)
-    * **Docker** - WSL2 + Container (preferred)
-    * **VirtualBox** - VM
-    * **VMware Workstation** - VM
-    * **SSH** - remote ssh
+# 💻 Demo 💻 #
 
 ---
 
 # 2 - MicroK8s
 _[https://microk8s.io/](https://microk8s.io/)_
 
-
+* **Developed by Canonical**
+* **CNCF certified**
+* **Multi-cluster**
+* **Persistent Volumes**
+* **Ingress**
+* **Container runtime** - containerd,kata
+* **Networking** - Calico
 
 ---
 
-# 3 - k0s
+# 💻 Demo 💻 #
+
+---
+
+# 3 - k3s / k3d by Rancher
+__[https://k3s.io/](https://k3s.io/)__ - __[https://k3d.io/](https://k3d.io/)__
+
+* **Developed by Rancher**
+* **CNCF certified**
+* **Multi-cluster**
+* **LoadBalancer**
+* **Persistent Volumes**
+* **Ingress**
+* **Container runtime** - CRI-O
+* **Networking** - Flannel,Canal
+
+---
+
+# 💻 Demo 💻 #
+
+---
+
+# 4 - k0s
 _[https://k0sproject.io/](https://k0sproject.io/)_
 
----
-
-# 4 - Docker Desktop
-
----
-
-# 5 - Rancher Desktop
-
----
-
-# 6 - KIND
+* **Developed by Team Lens**
+* **CNCF certified**
+* **Multi-cluster**
+* **Persistent Volumes**
+* **Ingress**
+* **Container runtime** - containerd
+* **Networking** - Kube-Router,Calico
 
 ---
 
-# 7 - k3s / k3d by Rancher
-__[https://k3s.io/](https://k3s.io/)__
-
-__[https://k3d.io/](https://k3d.io/)__
+# 5 - Docker Desktop
 
 ---
+
+# 6 - Rancher Desktop
+
+---
+
+# 7 - KIND
+
+---
+
 
 # 8 - vCluster
 

@@ -185,6 +185,9 @@ body {
 
 .reveal code {
     font-family: monospace;
+    background: rgb(221, 220, 220);
+    border-radius: 10px;
+    padding: 5px;
     text-transform: none;
 }
 
