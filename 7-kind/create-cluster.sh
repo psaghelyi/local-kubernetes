@@ -15,3 +15,9 @@ EOF
 kind create cluster --name k8s-playground --config kind-config.yaml
 
 rm kind-config.yaml
+
+# ingress
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
+
+

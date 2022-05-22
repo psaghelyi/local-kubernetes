@@ -52,7 +52,7 @@ _[https://minikube.sigs.k8s.io/](https://minikube.sigs.k8s.io/)_
 
 * **Developed by Google**
 * **CNCF certified**
-* **Multi-cluster** - `minikube start -p <name>`
+* **Multi-node-cluster** - `minikube start -p <name>`
 * **LoadBalancer** - `minikube tunnel`
 * **Persistent Volumes**
 * **Ingress**
@@ -70,11 +70,12 @@ _[https://microk8s.io/](https://microk8s.io/)_
 
 * **Developed by Canonical**
 * **CNCF certified**
-* **Multi-cluster**
+* **Multi-node-cluster**
 * **Persistent Volumes**
 * **Ingress**
 * **Container runtime** - containerd,kata
 * **Networking** - Calico
+* **Based on [Multipass](https://multipass.run/docs)**
 
 ---
 
@@ -82,12 +83,12 @@ _[https://microk8s.io/](https://microk8s.io/)_
 
 ---
 
-# 3 - k3s / k3d by Rancher
-__[https://k3s.io/](https://k3s.io/)__ - __[https://k3d.io/](https://k3d.io/)__
+# 3 - k3d by Rancher
+__[https://k3d.io/](https://k3d.io/)__
 
 * **Developed by Rancher**
 * **CNCF certified**
-* **Multi-cluster**
+* **Multi-node-cluster**
 * **LoadBalancer**
 * **Persistent Volumes**
 * **Ingress**
@@ -105,7 +106,7 @@ _[https://k0sproject.io/](https://k0sproject.io/)_
 
 * **Developed by Team Lens**
 * **CNCF certified**
-* **Multi-cluster**
+* **Multi-node-cluster**
 * **Persistent Volumes**
 * **Ingress**
 * **Container runtime** - containerd
@@ -113,19 +114,66 @@ _[https://k0sproject.io/](https://k0sproject.io/)_
 
 ---
 
+# 💻 Demo 💻 #
+
+---
+
 # 5 - Docker Desktop
+
+* **Developed by Docker Inc.**
+* **CNCF certified**
+* **Single-node-cluster** - k8s
+* **Persistent Volumes**
+* **Ingress**
+* **Container runtime** - dockerd
+* **Networking** - vpnkit
+
+---
+
+# 💻 Demo 💻 #
 
 ---
 
 # 6 - Rancher Desktop
 
+* **Developed by Rancher Inc.**
+* **CNCF certified**
+* **Single-node-cluster** - k3s
+* **Persistent Volumes**
+* **Ingress** - Traefik
+* **Container runtime** - containerd,dockerd(moby)
+* **Networking** - Flannel,Calico,Canal
+
+---
+
+# 💻 Demo 💻 #
+
 ---
 
 # 7 - KIND
 
+* **Developed by Google**
+* **CNCF certified**
+
 ---
 
+# 💻 Demo 💻 #
+
+---
 
 # 8 - vCluster
+_[https://www.vcluster.com/](https://www.vcluster.com/)_
+
+* **Developed by Loft Labs**
+* **CNCF certified**
+
+
+---
+
+# 💻 Demo 💻 #
+
+---
+
+# ❓ Q&A ❓ #
 
 ---
