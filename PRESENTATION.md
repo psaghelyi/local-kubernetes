@@ -83,7 +83,7 @@ _[https://microk8s.io/](https://microk8s.io/)_
 
 ---
 
-# 3 - k3d by Rancher
+# 3 - K3D
 __[https://k3d.io/](https://k3d.io/)__
 
 * **Developed by Rancher**
