@@ -1,18 +1,16 @@
 #!/bin/bash
 
+###################################
+######## Minimal Minikube #########
+###################################
+
 minikube delete --all
 
-minikube start --cpus 4 --addons dashboard,metrics-server,ingress --driver='docker' --nodes 3
+minikube start --cpus 4 --addons dashboard,metrics-server --driver='docker'
 
 # minikube addons list
 
-#minikube addons enable ingress
-#minikube addons enable registry
-#minikube addons enable dashboard
+minikube update-context
 
-#minikube addons enable metallb
-#minikube addons configure metallb
+minikube dashboard
 
-kubectl apply -f ingress.yaml
-
-minikube tunnel
