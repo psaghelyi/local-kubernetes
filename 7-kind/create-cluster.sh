@@ -7,7 +7,6 @@ HOST_IP=$(dig +short host.docker.internal)
 
 source scripts/helpers.sh
 source scripts/install-cert-manager.sh
-#source scripts/install-ingress.sh
 source scripts/install-dashboard.sh
 
 kind delete clusters --all
@@ -29,29 +28,21 @@ nodes:
     hostPort: 8080
   - containerPort: 443
     hostPort: 8443
-#- role: worker
-#- role: worker
+- role: worker
+- role: worker
 EOF
 
 kind create cluster --name k8s-playground --config kind-config.yaml
 
 rm kind-config.yaml
 
+kubectl config use-context kind-k8s-playground
 
 
 installCertManager
 
 # ingress
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-
-kubectl wait --namespace ingress-nginx \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=90s
-
-
-#installIngress
 
 installDashboard
 

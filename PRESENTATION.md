@@ -8,6 +8,7 @@ _Hands-on Session_
 ---
 
 # How It's Made
+_Cloud Native Computing Foundation_
 
 * **Container Management** (CRI -> container runtime)
 * **Network Management** (CNI -> iptables, dns)
@@ -20,7 +21,7 @@ _Hands-on Session_
 
 * **kube-apiserver**
 * **kube-scheduler**
-* **kube-controll-manager**
+* **kube-controller-manager**
 * **kubelet**
 * **kube-proxy**
 
@@ -70,9 +71,9 @@ _[https://microk8s.io/](https://microk8s.io/)_
 
 * **Developed by Canonical**
 * **CNCF certified**
-* **Multi-node-cluster**
+* **Multi-node-cluster** - `microk8s add-node`, then start new VM
 * **Persistent Volumes**
-* **Ingress**
+* **Ingress** - NGINX
 * **Container runtime** - containerd,kata
 * **Networking** - Calico
 * **Based on [Multipass](https://multipass.run/docs)**
@@ -88,10 +89,10 @@ __[https://k3d.io/](https://k3d.io/)__
 
 * **Developed by Rancher**
 * **CNCF certified**
-* **Multi-node-cluster**
-* **LoadBalancer**
-* **Persistent Volumes**
-* **Ingress**
+* **Multi-node-cluster** - automatic
+* **LoadBalancer** - dedicated
+* **Persistent Volumes** - automatic
+* **Ingress** - Traefik by default
 * **Container runtime** - CRI-O
 * **Networking** - Flannel,Canal
 
@@ -111,6 +112,7 @@ _[https://k0sproject.io/](https://k0sproject.io/)_
 * **Ingress**
 * **Container runtime** - containerd
 * **Networking** - Kube-Router,Calico
+* **One single binary** - statically linked, no OS-level dependencies
 
 ---
 
@@ -140,7 +142,7 @@ _[https://k0sproject.io/](https://k0sproject.io/)_
 * **CNCF certified**
 * **Single-node-cluster** - k3s
 * **Persistent Volumes**
-* **Ingress** - Traefik
+* **Ingress** - Traefik by default
 * **Container runtime** - containerd,dockerd(moby)
 * **Networking** - Flannel,Calico,Canal
 
@@ -154,6 +156,10 @@ _[https://k0sproject.io/](https://k0sproject.io/)_
 
 * **Developed by Google**
 * **CNCF certified**
+* **Multi-node-cluster**
+* **Ingress** - needs special config
+* **Container runtime** - dockerd
+* **Networking** - kindnet ([ptp](https://www.cni.dev/plugins/current/main/ptp/) plugin for CNI)
 
 ---
 

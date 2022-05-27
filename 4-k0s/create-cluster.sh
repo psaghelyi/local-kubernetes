@@ -12,7 +12,7 @@ source scripts/install-cert-manager.sh
 source scripts/install-ingress.sh
 source scripts/install-dashboard.sh
 
-docker rm -f k0s
+docker rm -f k0s k0s-worker1 k0s-worker2
 
 # Create Master Node
 docker run -d --name k0s --hostname k0s --privileged -v /var/lib/k0s -p 6443:6443 -p 80:80 -p 443:443 docker.io/k0sproject/k0s:latest

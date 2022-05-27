@@ -37,10 +37,10 @@ kubeAPI:
   hostPort: "${API_PORT}" # kubernetes api port 6443:6443
 image: rancher/k3s:latest
 #image: rancher/k3s:v1.22.6-k3s1
-#volumes:
-#  - volume: $(pwd)/k3dvol:/tmp/k3dvol # volume in host:container
-#    nodeFilters:
-#      - all
+volumes:
+  - volume: $(pwd)/.storage:/tmp/k3dvol # volume in host:container
+    nodeFilters:
+      - all
 ports:
   - port: 0.0.0.0:${HTTP_PORT}:80 # http port host:container
     nodeFilters:
@@ -79,7 +79,6 @@ EOF
   K3D_FIX_DNS=1 k3d cluster create --config tmp-k3d-${CLUSTER_NAME}.yaml
   rm tmp-k3d-${CLUSTER_NAME}.yaml
 
-  kubectl config use-context k3d-${CLUSTER_NAME}
   kubectl cluster-info
   footer
 
