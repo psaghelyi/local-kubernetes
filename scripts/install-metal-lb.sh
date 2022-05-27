@@ -8,8 +8,6 @@ installMetalLB()
   kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
   kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
 
-  LB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' k0s)
-
   cat <<EOF | kubectl apply -f -
     apiVersion: v1
     kind: ConfigMap

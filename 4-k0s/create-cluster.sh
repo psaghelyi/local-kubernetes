@@ -4,6 +4,7 @@
 CLUSTER_IP=127.0.0.1
 CLUSTER_DOMAIN=127.0.0.1.nip.io
 HOST_IP=$(dig +short host.docker.internal)
+LB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' k0s)
 
 source scripts/helpers.sh
 source scripts/install-metal-lb.sh
