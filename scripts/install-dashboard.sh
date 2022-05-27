@@ -14,7 +14,7 @@ extraArgs:
 protocolHttp: true
 
 service:
-  externalPort: 80
+  externalPort: 8888
 
 ingress:
   enabled: true
