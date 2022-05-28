@@ -2,7 +2,8 @@
 
 # Installation variables
 CLUSTER_IP=127.0.0.1
-CLUSTER_DOMAIN=127.0.0.1.nip.io
+CLUSTER_DOMAIN=${CLUSTER_IP}.nip.io
+CLUSTER_NAME=docker-desktop
 HOST_IP=$(dig +short host.docker.internal)
 
 source scripts/helpers.sh
@@ -16,3 +17,4 @@ installCertManager
 installIngress
 
 installDashboard
+

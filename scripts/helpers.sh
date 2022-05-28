@@ -11,7 +11,6 @@ header()
     echo
     echo
     echo ${bold}${1}${normal}
-    echo
     echo "-------------------------------------"
 }
 

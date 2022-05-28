@@ -2,7 +2,7 @@
 
 installIngress ()
 {
-  header "Installing Ingress"
+  header "install NGINX ingress"
 
   # Create Namespace
   kubectl create namespace ingress
@@ -15,10 +15,6 @@ EOF
 # comment the previous section and uncomment this for vanilla NGINX ingress:
 #  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/cloud/deploy.yaml
 
-  footer
-  sleep 5
-  header "LoadBalancer info:"
-  kubectl -n ingress get svc | egrep -e NAME -e LoadBalancer
   footer
 }
 

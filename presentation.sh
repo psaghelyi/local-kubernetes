@@ -1,3 +1,3 @@
 #!/bin/bash
 
-reveal-md PRESENTATION.md --theme diligent.css -w
+reveal-md README.md --theme diligent.css -w

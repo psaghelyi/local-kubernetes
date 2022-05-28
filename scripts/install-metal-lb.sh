@@ -2,7 +2,7 @@
 
 installMetalLB()
 {
-  header "Creating Metal LB"
+  header "install Metal LB"
 
   # MetalLB
   kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
@@ -23,5 +23,6 @@ installMetalLB()
           - ${LB_IP}-${LB_IP}
 EOF
 
+  footer
 }
 

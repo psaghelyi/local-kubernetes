@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# create certificate and private key for CLUSTER_DOMAIN and CLUSTER_IP
+
 createCerts()
 {
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \

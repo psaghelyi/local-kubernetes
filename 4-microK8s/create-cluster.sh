@@ -2,7 +2,8 @@
 
 # Installation variables
 CLUSTER_IP=127.0.0.1
-CLUSTER_DOMAIN=127.0.0.1.nip.io
+CLUSTER_DOMAIN=${CLUSTER_IP}.nip.io
+CLUSTER_NAME=microk8s
 HOST_IP=$(dig +short host.docker.internal)
 LB_IP=127.0.0.1
 
@@ -14,7 +15,7 @@ source scripts/install-ingress.sh
 source scripts/install-dashboard.sh
 
 
-microk8s config > ~/.kube-config
+microk8s config > ~/.kube/config
 kubectl config use-context microk8s
 
 installCertManager

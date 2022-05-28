@@ -1,5 +1,5 @@
 /**
- * Modified "White" theme for Glavanize.
+ * Modified "White" theme for Diligent.
  *
  * Rather than requiring Reveal.js's themeing capability to generate this CSS,
  * CSS variables, and other modern CSS techniques are used so SASS is not required.
@@ -80,6 +80,7 @@ body {
 
 .reveal h4 {
     font-size: 1em;
+    color: #1a53a1;
 }
 
 .reveal h1 {
@@ -189,6 +190,7 @@ body {
     border-radius: 10px;
     padding: 5px;
     text-transform: none;
+    font-size: 0.75em;
 }
 
 .reveal pre code {
@@ -203,9 +205,15 @@ body {
     margin: auto;
     border-collapse: collapse;
     border-spacing: 0;
+    font-size: .65em;
+}
+
+.reveal table tr:nth-child(odd) {
+    background-color: #dae5ef;
 }
 
 .reveal table th {
+    background-color: #ffffff;
     font-weight: bold;
 }
 

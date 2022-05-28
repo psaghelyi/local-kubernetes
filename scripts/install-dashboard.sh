@@ -2,6 +2,8 @@
 
 installDashboard ()
 {
+  header "install kubernetes-dashboard"
+
   helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 
   cat <<EOF | helm install --namespace kubernetes-dashboard --create-namespace -f - kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
@@ -48,4 +50,6 @@ metricsScraper:
 EOF
 
   kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:kubernetes-dashboard
+  
+  footer
 }
