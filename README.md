@@ -27,19 +27,30 @@ _Cloud Native Computing Foundation_
 
 ---
 
-<img data-src="assets/kubernetes-structure.png" class="stretch"/>
+<!-- .slide: data-transition="convex-in none-out" -->
+<img data-src="assets/kubernetes-structure-Page-1.drawio.png" class="stretch"/>
+
+---
+
+<!-- .slide: data-transition="fade-in none-out" -->
+<img data-src="assets/kubernetes-structure-Page-2.drawio.png" class="stretch"/>
+
+---
+
+<!-- .slide: data-transition="fade-in convex-out" -->
+<img data-src="assets/kubernetes-structure-Page-3.drawio.png" class="stretch"/>
 
 ---
 
 # Minimal Valuable Cluster
-_Functionalities for Convenience_
+_Use Case: Local Testing and Development_
 
 * **Nodes (server/agent/control-plane)**
-* **Dashboard & Metrics**
-* **Ingress**
 * **Load Balancer / Tunnel**
+* **Ingress**
+* **Cert Manager**
+* **Dashboard & Metrics**
 * (Image Registry)
-* (Cert Manager)
 
 ---
 
@@ -77,6 +88,7 @@ _[https://www.docker.com/products/docker-desktop/](https://www.docker.com/produc
 * **Single-node-cluster** - k8s
 * **Container runtime** - dockerd
 * **Networking** - vpnkit
+* **Dashboard** - good enough
 
 ---
 
@@ -88,7 +100,7 @@ _[https://rancherdesktop.io/](https://rancherdesktop.io/)_
 * **Single-node-cluster** - K3s
 * **Container runtime** - containerd,dockerd(moby)
 * **Networking** - Flannel,Calico,Canal
-* **
+* **Dashboard** - decent
 
 ---
 
@@ -149,18 +161,25 @@ _[https://www.vcluster.com/](https://www.vcluster.com/)_
 ---
 
 # Summary
-_05/28/2022_
+_06/01/2022_
 
 |               | Default | OS Image       | Container Runtime | Memory        |
 |---------------|----------|----------------|-------------------|---------------|
 | **Minikube**  | v1.23.3  | Ubuntu 20.04.2 | docker://20.10.12 |  1G + 300M    |
 | **Docker D**  | v1.24.0  | Alpine v3.15   | docker://20.10.14 |  2 GB      |
 | **Rancher D** | v1.23.6  |                | containerd://1.5.11 |  2 GB      |
-| **MicroK8S**  | v1.24.0  |   <host>       | containerd://1.5.11 |        |
+| **MicroK8S**  | v1.24.0  |   ---          | containerd://1.5.11 |        |
 | **KIND**      | v1.24.0  | Ubuntu 21.10   | containerd://1.6.4  |  1G + 200M     |
 | **K3D**       | v1.21.12 | Alpine v3.16   | containerd://1.4.13 |  800M + 200M   |
 | **K0S**       | v1.23.6  | Alpine v3.13   | containerd://1.5.11 |  1.3G + 256M   |
 
 ---
 
-# 👍 _Thank You_ 👍 #
+# 👍 _Thank You_ 👍
+
+<font size="6">**repo:** [https://github.com/psaghelyi/local-kubernetes](https://github.com/psaghelyi/local-kubernetes)</font>
+
+<font size="6">**presentation:** [https://revealjs.com/markdown/](https://revealjs.com/markdown/)</font>
+
+<font size="6">**drawings:** [https://drawio-app.com/](https://drawio-app.com/)</font>
+
