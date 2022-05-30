@@ -3,11 +3,11 @@ title: Working with Local Kubernetes
 ---
 
 # Working with Local Kubernetes
-_Hands-on Session_
+_or 8 ways to create (and destroy) a cluster locally_
 
 ---
 
-# How It's Made
+# How It's Made?
 _Cloud Native Computing Foundation_
 
 * **Container Management** (CRI -> container runtime)
@@ -17,7 +17,7 @@ _Cloud Native Computing Foundation_
 
 ---
 
-# What It's Made
+# What It's Made of?
 
 * **kube-apiserver** - handels requests
 * **kube-scheduler** - finds place to pods
@@ -42,7 +42,7 @@ _Cloud Native Computing Foundation_
 
 ---
 
-# Minimal Valuable Cluster
+# Minimal Viable Cluster
 _Use Case: Local Testing and Development_
 
 * **Nodes (server/agent/control-plane)**
