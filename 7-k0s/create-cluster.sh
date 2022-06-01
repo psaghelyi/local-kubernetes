@@ -17,7 +17,7 @@ docker rm -f ${CLUSTER_NAME} ${CLUSTER_NAME}-worker1 ${CLUSTER_NAME}-worker2
 footer
 
 header "create cluster (master node)"
-docker run -d --name ${CLUSTER_NAME} --hostname ${CLUSTER_NAME} --privileged -v /var/lib/k0s -p 6443:6443 -p 80:80 -p 443:443 docker.io/k0sproject/k0s:latest
+docker run -d --name ${CLUSTER_NAME} --hostname ${CLUSTER_NAME} --privileged -v /var/lib/k0s -p 6443:6443 -p 8080:80 -p 8443:443 docker.io/k0sproject/k0s:latest
 
 sleep 10s
 until docker exec ${CLUSTER_NAME} kubectl wait --for=condition=Ready nodes --all --timeout=120s

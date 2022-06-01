@@ -163,15 +163,15 @@ _[https://www.vcluster.com/](https://www.vcluster.com/)_
 # Summary
 _06/01/2022_
 
-|               | Default | OS Image       | Container Runtime | Memory        |
-|---------------|----------|----------------|-------------------|---------------|
-| **Minikube**  | v1.23.3  | Ubuntu 20.04.2 | docker://20.10.12 |  1G + 300M    |
-| **Docker D**  | v1.24.0  | Alpine v3.15   | docker://20.10.14 |  2 GB      |
-| **Rancher D** | v1.23.6  |                | containerd://1.5.11 |  2 GB      |
-| **MicroK8S**  | v1.24.0  |   ---          | containerd://1.5.11 |        |
-| **KIND**      | v1.24.0  | Ubuntu 21.10   | containerd://1.6.4  |  1G + 200M     |
-| **K3D**       | v1.21.12 | Alpine v3.16   | containerd://1.4.13 |  800M + 200M   |
-| **K0S**       | v1.23.6  | Alpine v3.13   | containerd://1.5.11 |  1.3G + 256M   |
+|               | Default  | OS Image       | Container Runtime   | Memory       |
+|---------------|----------|----------------|---------------------|--------------|
+| **Minikube**  | v1.23.3  | Ubuntu 20.04.2 | docker://20.10.12   |  1G + 300M   |
+| **Docker D**  | v1.24.0  | Alpine v3.15   | docker://20.10.14   |  2 GB        |
+| **Rancher D** | v1.23.6  |                | containerd://1.5.11 |  2 GB        |
+| **MicroK8S**  | v1.24.0  |   ---          | containerd://1.5.11 |              |
+| **KIND**      | v1.24.0  | Ubuntu 21.10   | containerd://1.6.4  |  1G + 200M   |
+| **K3D**       | v1.21.12 | Alpine v3.16   | containerd://1.4.13 |  800M + 200M |
+| **K0S**       | v1.23.6  | Alpine v3.13   | containerd://1.5.11 |  1.3G + 256M |
 
 ---
 
@@ -183,3 +183,4 @@ _06/01/2022_
 
 <font size="6">**drawings:** [https://drawio-app.com/](https://drawio-app.com/)</font>
 
+<font size="6">**e-mail:** <psaghelyi@gmail.com></font>
