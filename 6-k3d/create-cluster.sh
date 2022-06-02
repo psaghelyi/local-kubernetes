@@ -76,6 +76,7 @@ EOF
 K3D_FIX_DNS=1 k3d cluster create --config tmp-${CLUSTER_NAME}.yaml
 rm tmp-${CLUSTER_NAME}.yaml
 
+kubectl wait --for=condition=Ready nodes --all --timeout=120s
 kubectl cluster-info
 footer
 
@@ -100,7 +101,6 @@ EOF
 kubectl describe pv k3d-pv
 footer
 
-installCluster
 
 installCertManager
 
