@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# installation
+# snap install microk8s --classic
+
 # Installation variables
 CLUSTER_IP=127.0.0.1
 CLUSTER_DOMAIN=${CLUSTER_IP}.nip.io
