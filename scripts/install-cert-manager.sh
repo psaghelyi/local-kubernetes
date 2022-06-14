@@ -18,6 +18,11 @@ installCertManager()
 
   footer
 
+  if [[ "${OSTYPE}" == "darwin"* ]]; then
+    BASE64="base64 -b0"
+  else
+    BASE64="base64 -w0"
+  fi
   cat <<EOF | kubectl apply -f -
     apiVersion: v1
     kind: Secret
@@ -25,8 +30,8 @@ installCertManager()
       name: ca-key-pair
       namespace: cert-manager
     data:
-      tls.crt: $(cat .certs/${CLUSTER_DOMAIN}.cer | base64 -w0)
-      tls.key: $(cat .certs/${CLUSTER_DOMAIN}-key | base64 -w0)
+      tls.crt: $(cat .certs/${CLUSTER_DOMAIN}.cer | ${BASE64} )
+      tls.key: $(cat .certs/${CLUSTER_DOMAIN}.key | ${BASE64} )
 EOF
 
   footer
