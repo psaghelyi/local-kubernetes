@@ -24,9 +24,10 @@ footer
 
 header "create cluster"
 cat <<EOF  > tmp-${CLUSTER_NAME}.yaml
-  apiVersion: k3d.io/v1alpha3
+  apiVersion: k3d.io/v1alpha4
   kind: Simple
-  name: ${CLUSTER_NAME}
+  metadata:
+    name: ${CLUSTER_NAME}
   servers: ${SERVERS}
   agents: ${AGENTS}
   kubeAPI:
@@ -37,7 +38,8 @@ cat <<EOF  > tmp-${CLUSTER_NAME}.yaml
   volumes:
     - volume: $(pwd)/.storage:/tmp/k3dvol # volume in host:container
       nodeFilters:
-        - all
+        - server:0
+        - agent:*
   ports:
     - port: 0.0.0.0:${HTTP_PORT}:80 # http port host:container
       nodeFilters:

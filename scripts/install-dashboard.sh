@@ -23,6 +23,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: lets-encrypt-http-issuer
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
   paths:
     - /
   hosts:
@@ -37,13 +38,13 @@ settings:
   # Cluster name that appears in the browser window title if it is set
   clusterName: "${CLUSTER_NAME}"
   # Max number of items that can be displayed on each list page
-  itemsPerPage: 25
+  itemsPerPage: 100
   ## Number of seconds between every auto-refresh of logs
-  # logsAutoRefreshTimeInterval: 5
+  logsAutoRefreshTimeInterval: 5
   ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
   resourceAutoRefreshTimeInterval: 5
   ## Hide all access denied warnings in the notification panel
-  # disableAccessDeniedNotifications: false
+  disableAccessDeniedNotifications: false
 
 metricsScraper:
   enabled: true

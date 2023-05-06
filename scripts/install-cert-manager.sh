@@ -19,7 +19,7 @@ installCertManager()
   footer
 
   if [[ "${OSTYPE}" == "darwin"* ]]; then
-    BASE64="base64 -b0"
+    BASE64="base64"
   else
     BASE64="base64 -w0"
   fi
