@@ -4,18 +4,44 @@ source scripts/helpers.sh
 source scripts/install-cert-manager.sh
 source scripts/install-ingress.sh
 source scripts/install-dashboard.sh
+source scripts/install-monitoring.sh
 
 
 # Installation variables
 CLUSTER_IP=127.0.0.1
-CLUSTER_DOMAIN=${CLUSTER_IP}.nip.io
 CLUSTER_NAME=cluster-1
-HOST_IP=$(dig +short host.docker.internal)
+CLUSTER_DOMAIN=${CLUSTER_IP}.nip.io
 API_PORT=6443
 HTTP_PORT=8080
 HTTPS_PORT=8443
+GRAFANA_PORT=3000
+INFLUXDB_PORT=8086
 SERVERS=1
 AGENTS=2
+INSTALL_CERTMANAGER=Yes
+INSTALL_INGRESS=Yes
+INSTALL_DASHBOARD=Yes
+INSTALL_MONITORING=No
+INSTALL_KUBEAPPS=No
+INSTALL_LINKERD=No
+READ_VALUE=
+
+
+read_value "Cluster Name" "${CLUSTER_NAME}"
+CLUSTER_NAME=${READ_VALUE}
+read_value "Cluster Domain" "${CLUSTER_DOMAIN}"
+CLUSTER_DOMAIN=${READ_VALUE}
+read_value "Servers (Masters)" "${SERVERS}"
+SERVERS=${READ_VALUE}
+read_value "Agents (Workers)" "${AGENTS}"
+AGENTS=${READ_VALUE}
+read_value "API Port" "${API_PORT}"
+API_PORT=${READ_VALUE}
+read_value "LoadBalancer HTTP Port" "${HTTP_PORT}"
+HTTP_PORT=${READ_VALUE}
+read_value "LoadBalancer HTTPS Port" "${HTTPS_PORT}"
+HTTPS_PORT=${READ_VALUE}
+
 
 
 header "cleanup previous run"
@@ -45,6 +71,12 @@ cat <<EOF  > tmp-${CLUSTER_NAME}.yaml
       nodeFilters:
         - loadbalancer
     - port: 0.0.0.0:${HTTPS_PORT}:443 # https port host:container
+      nodeFilters:
+        - loadbalancer
+    - port: 0.0.0.0:${GRAFANA_PORT}:3000
+      nodeFilters:
+        - loadbalancer
+    - port: 0.0.0.0:${INFLUXDB_PORT}:8086
       nodeFilters:
         - loadbalancer
   env:
@@ -104,8 +136,31 @@ kubectl describe pv k3d-pv
 footer
 
 
-installCertManager
+read_value "Install CertManager? ${yes_no}" "${INSTALL_CERTMANAGER}"
+if [ $(isSelected ${READ_VALUE}) = 1 ];
+then
+    installCertManager
+fi
 
-installIngress
+read_value "Install Ingress? (NGINX) ${yes_no}" "${INSTALL_INGRESS}"
+if [ $(isSelected ${READ_VALUE}) = 1 ];
+then
+    installIngress
+fi
 
-installDashboard
+read_value "Install Dashboard? ${yes_no}" "${INSTALL_DASHBOARD}"
+if [ $(isSelected ${READ_VALUE}) = 1 ];
+then
+    installDashboard
+fi
+
+read_value "Install the monitoring stack? (telegraf, influxDB, grafana) ${yes_no}" "${INSTALL_MONITORING}"
+if [ $(isSelected ${READ_VALUE}) = 1 ];
+then
+    installMonitoring
+fi
+
+
+
+
+

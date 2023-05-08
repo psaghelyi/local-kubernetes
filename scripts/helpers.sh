@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# bold text
+
+# bold text 
 bold=$(tput bold)
 normal=$(tput sgr0)
 yes_no="(${bold}Y${normal}es/${bold}N${normal}o)"
@@ -19,6 +20,29 @@ footer()
 {
     echo "-------------------------------------"
 }
+
+
+# $1 text to show - $2 default value
+read_value ()
+{
+    read -p "${1} [${bold}${2}${normal}]: " READ_VALUE
+    if [ "${READ_VALUE}" = "" ]
+    then
+        READ_VALUE=$2
+    fi
+}
+
+
+isSelected()
+{
+  if [ "${1}" = "Yes" ] || [ "${1}" = "yes" ] || [ "${1}" = "Y" ]  || [ "${1}" = "y" ];
+  then
+    echo 1
+  else
+    echo 0
+  fi
+}
+
 
 # Check if exist docker, k3d and kubectl
 checkDependencies ()

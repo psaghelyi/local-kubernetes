@@ -12,7 +12,7 @@ installCertManager()
     cert-manager jetstack/cert-manager \
     --namespace cert-manager \
     --create-namespace \
-    --version v1.7.1 \
+    --version v1.11.0 \
     --set installCRDs=true
     #--set webhook.securePort=10260
 
