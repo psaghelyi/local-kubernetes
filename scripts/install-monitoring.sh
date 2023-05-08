@@ -214,7 +214,7 @@ spec:
 EOF
 
   # Telegraf Service
-  kubectl --namespace monitoring expose deployment telegraf --port=8125 --target-port=8125 --protocol=UDP --type=NodePort
+  kubectl --namespace monitoring expose deployment telegraf --port=8125 --target-port=8125 --protocol=UDP --type=ClusterIP
   footer
   
   #==========================================================================================================================

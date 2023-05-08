@@ -87,3 +87,12 @@ checkDependencies ()
     fi
 }
 
+getHostIp()
+{
+    docker run --rm busybox /bin/nslookup host.docker.internal | awk '/^Address: / { print $2 }'
+}
+
+getCatalog()
+{
+    curl -X GET http://registry.127.0.0.1.nip.io:5000/v2/_catalog
+}

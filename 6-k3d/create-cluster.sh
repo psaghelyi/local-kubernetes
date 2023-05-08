@@ -8,6 +8,7 @@ source scripts/install-monitoring.sh
 
 
 # Installation variables
+HOST_IP=$(getHostIp)
 CLUSTER_IP=127.0.0.1
 CLUSTER_NAME=cluster-1
 CLUSTER_DOMAIN=${CLUSTER_IP}.nip.io
@@ -83,11 +84,11 @@ cat <<EOF  > tmp-${CLUSTER_NAME}.yaml
     - envVar: secret=token
       nodeFilters:
         - all
-  #registries:
-  #  create:
-  #    name: "k3d-registry.${HOST_IP}.nip.io"
-  #    host: "0.0.0.0"
-  #    hostPort: "5000"
+  registries:
+    create:
+      name: "registry.${CLUSTER_IP}.nip.io"
+      host: "0.0.0.0"
+      hostPort: "5000"
   options:
     k3d:
       wait: true
