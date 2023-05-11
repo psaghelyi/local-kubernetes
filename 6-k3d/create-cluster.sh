@@ -61,12 +61,10 @@ cat <<EOF  > tmp-${CLUSTER_NAME}.yaml
     hostIP: "0.0.0.0"
     hostPort: "${API_PORT}" # kubernetes api port 6443:6443
   image: rancher/k3s:latest
-  #image: rancher/k3s:v1.22.6-k3s1
   volumes:
-    - volume: $(pwd)/.storage:/tmp/k3dvol # volume in host:container
+    - volume: $(pwd)/.storage:/var/lib/rancher/k3s/storage
       nodeFilters:
-        - server:0
-        - agent:*
+        - all
   ports:
     - port: 0.0.0.0:${HTTP_PORT}:80 # http port host:container
       nodeFilters:
@@ -115,45 +113,23 @@ kubectl wait --for=condition=Ready nodes --all --timeout=120s
 kubectl cluster-info
 footer
 
-header "provision persistent volume"
-cat <<EOF | kubectl apply -f -
-  apiVersion: v1
-  kind: PersistentVolume
-  metadata:
-    name: k3d-pv
-    labels:
-      type: local
-  spec:
-    storageClassName: manual
-    capacity:
-      storage: 50Gi
-    accessModes:
-      - ReadWriteOnce
-    hostPath:
-      path: "/tmp/k3dvol"
-EOF
-
-kubectl describe pv k3d-pv
-footer
-
-
-read_value "Install CertManager? ${yes_no}" "${INSTALL_CERTMANAGER}"
-if [ $(isSelected ${READ_VALUE}) = 1 ];
-then
+#read_value "Install CertManager? ${yes_no}" "${INSTALL_CERTMANAGER}"
+#if [ $(isSelected ${READ_VALUE}) = 1 ];
+#then
     installCertManager
-fi
+#fi
 
-read_value "Install Ingress? (NGINX) ${yes_no}" "${INSTALL_INGRESS}"
-if [ $(isSelected ${READ_VALUE}) = 1 ];
-then
+#read_value "Install Ingress? (NGINX) ${yes_no}" "${INSTALL_INGRESS}"
+#if [ $(isSelected ${READ_VALUE}) = 1 ];
+#then
     installIngress
-fi
+#fi
 
-read_value "Install Dashboard? ${yes_no}" "${INSTALL_DASHBOARD}"
-if [ $(isSelected ${READ_VALUE}) = 1 ];
-then
+#read_value "Install Dashboard? ${yes_no}" "${INSTALL_DASHBOARD}"
+#if [ $(isSelected ${READ_VALUE}) = 1 ];
+#then
     installDashboard
-fi
+#fi
 
 read_value "Install the monitoring stack? (telegraf, influxDB, grafana) ${yes_no}" "${INSTALL_MONITORING}"
 if [ $(isSelected ${READ_VALUE}) = 1 ];

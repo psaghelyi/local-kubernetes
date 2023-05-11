@@ -8,6 +8,29 @@ installMonitoring() {
   header "Setup InfluxDB"
   
   # Persistent volume for InfluxDB
+#  cat <<EOF | kubectl apply -f -
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: influxdb-pv
+#spec:
+#  accessModes:
+#  - ReadWriteOnce
+#  capacity:
+#    storage: 1Gi
+#  claimRef:
+#    apiVersion: v1
+#    kind: PersistentVolumeClaim
+#    name: influxdb-pvc
+#    namespace: monitoring
+#  hostPath:
+#    path: /var/lib/rancher/k3s/storage/influxdb
+#    type: DirectoryOrCreate
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-path
+#  volumeMode: Filesystem
+#EOF
+
   cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -17,6 +40,7 @@ metadata:
     app: influxdb
   name: influxdb-pvc
 spec:
+  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:
@@ -65,10 +89,10 @@ spec:
         terminationMessagePolicy: File
         terminationMessagePath: /dev/termination-log
         volumeMounts:
-          - mountPath: /var/lib/influxdb
-            name: var-lib-influxdb
+          - name: var-lib-influxdb2
+            mountPath: /var/lib/influxdb2
       volumes:
-        - name: var-lib-influxdb
+        - name: var-lib-influxdb2
           persistentVolumeClaim:
             claimName: influxdb-pvc
       restartPolicy: Always
@@ -110,6 +134,13 @@ spec:
             - --token
             - secret-token
             - --force
+  podFailurePolicy:
+    rules:
+      - action: FailJob
+        onExitCodes:
+          operator: In
+          values: [1]
+  ttlSecondsAfterFinished: 60
 EOF
 
   footer
@@ -234,7 +265,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: monitoring
-  name: grafana-datasources
+  name: grafana-datasources-config
 data:
   ds.yaml: |-
     apiVersion: 1
@@ -250,6 +281,24 @@ data:
           tlsSkipVerify: true
         secureJsonData:
           token: secret-token
+EOF
+
+  # Grafana Config
+  cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: monitoring
+  labels:
+    app: grafana
+  name: grafana-pvc
+spec:
+  storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 EOF
 
   # Grafana Deployment
@@ -288,13 +337,18 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-          - mountPath: /etc/grafana/provisioning/datasources
-            name: grafana-datasources-volume
+          - name: grafana-datasources-volume
+            mountPath: /etc/grafana/provisioning/datasources
             readOnly: false
+          - name: var-lib-grafana
+            mountPath: /var/lib/grafana
       volumes:
         - name: grafana-datasources-volume
           configMap:
-            name: grafana-datasources
+            name: grafana-datasources-config
+        - name: var-lib-grafana
+          persistentVolumeClaim:
+            claimName: grafana-pvc
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
 EOF
