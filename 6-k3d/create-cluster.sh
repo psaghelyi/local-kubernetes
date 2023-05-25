@@ -5,6 +5,7 @@ source scripts/install-cert-manager.sh
 source scripts/install-ingress.sh
 source scripts/install-dashboard.sh
 source scripts/install-monitoring.sh
+source scripts/install-linkerd.sh
 
 
 # Installation variables
@@ -137,6 +138,11 @@ then
     installMonitoring
 fi
 
+read_value "Install service mesh? (Linkerd w/ viz and jaeger) ${yes_no}" "${INSTALL_LINKERD}"
+if [ $(isSelected ${READ_VALUE}) = 1 ];
+then
+    installLinkerd
+fi
 
 
 

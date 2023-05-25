@@ -101,7 +101,7 @@ EOF
   # InfluxDB Service
   kubectl expose deployment influxdb --namespace=monitoring --port=8086 --target-port=8086 --protocol=TCP --type=LoadBalancer
   
-  kubectl wait --namespace monitoring --for=condition=ready pod -l app=influxdb --timeout=30s
+  kubectl wait --namespace monitoring --for=condition=ready pod -l app=influxdb
 
   # Initial setup for InfluxDB   
   cat <<EOF | kubectl apply -f -
@@ -259,7 +259,15 @@ EOF
   --from-literal=GF_SECURITY_ADMIN_USER=admin \
   --from-literal=GF_SECURITY_ADMIN_PASSWORD=admin1234
 
-  # Grafana Data Source
+  cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: grafana
+  namespace: monitoring
+EOF
+
+  # Grafana Data Source Provisioning
   cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: ConfigMap
@@ -281,9 +289,41 @@ data:
           tlsSkipVerify: true
         secureJsonData:
           token: secret-token
+      - name: prometheus_linkerd
+        type: prometheus
+        access: proxy
+        orgId: 1
+        isDefault: true
+        url: http://prometheus.linkerd-viz.svc.cluster.local:9090
+        jsonData:
+          timeInterval: "5s"
+        editable: true
 EOF
 
-  # Grafana Config
+  # Grafana Dashboards Provisioning
+  cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: monitoring
+  name: grafana-dashboards-config
+data:
+  default.yaml: |-
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+EOF
+
+kubectl create configmap -n monitoring linkerd-dashboards --from-file=scripts/grafana-linkerd-dashboards
+
+  # Grafana Data
   cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -339,18 +379,28 @@ spec:
         volumeMounts:
           - name: grafana-datasources-volume
             mountPath: /etc/grafana/provisioning/datasources
-            readOnly: false
+          - name: grafana-providers-volume
+            mountPath: /etc/grafana/provisioning/dashboards
           - name: var-lib-grafana
             mountPath: /var/lib/grafana
+          - name: var-lib-grafana-dashboards-default
+            mountPath: /var/lib/grafana/dashboards/default
       volumes:
         - name: grafana-datasources-volume
           configMap:
             name: grafana-datasources-config
+        - name: grafana-providers-volume
+          configMap:
+            name: grafana-dashboards-config
         - name: var-lib-grafana
           persistentVolumeClaim:
             claimName: grafana-pvc
+        - name: var-lib-grafana-dashboards-default
+          configMap:
+            name: linkerd-dashboards
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
+      serviceAccountName: grafana
 EOF
 
   # Grafana Service
