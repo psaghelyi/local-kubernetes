@@ -24,8 +24,6 @@ INSTALL_CERTMANAGER=Yes
 INSTALL_INGRESS=Yes
 INSTALL_DASHBOARD=Yes
 INSTALL_MONITORING=No
-INSTALL_KUBEAPPS=No
-INSTALL_LINKERD=No
 READ_VALUE=
 
 
@@ -52,7 +50,7 @@ footer
 
 header "create cluster"
 cat <<EOF  > tmp-${CLUSTER_NAME}.yaml
-  apiVersion: k3d.io/v1alpha4
+  apiVersion: k3d.io/v1alpha5
   kind: Simple
   metadata:
     name: ${CLUSTER_NAME}
@@ -136,14 +134,6 @@ read_value "Install the monitoring stack? (telegraf, influxDB, grafana) ${yes_no
 if [ $(isSelected ${READ_VALUE}) = 1 ];
 then
     installMonitoring
-fi
-
-read_value "Install service mesh? (Linkerd w/ viz and jaeger) ${yes_no}" "${INSTALL_LINKERD}"
-if [ $(isSelected ${READ_VALUE}) = 1 ];
-then
     installLinkerd
 fi
-
-
-
 
